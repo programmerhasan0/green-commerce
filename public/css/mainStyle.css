@@ -1,0 +1,29 @@
+.logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.user-message {
+  margin : auto;
+  width: 90%;
+  border: 1px solid rgb(66, 66, 196);
+  padding: 1rem;
+  border-radius: 3px;
+  background-color: rgb(120, 120, 170);
+  text-align: center;
+
+}
+
+.user-message-error {
+  border-color: red;
+  background-color: rgb(224, 138, 138);
+  color : rgb(139, 15, 15);
+}
+
+@media (min-width : 768px) {
+  .user-message {width: 30rem;}
+}
+
+input.invalid, textarea.invalid {
+  border-color: red;
+}

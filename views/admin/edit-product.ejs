@@ -1,0 +1,61 @@
+<%- include('../includes/head') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation') %>
+            <main>
+                <% if(errorMessage) {%>
+                    <div class="user-message user-message-error">
+                        <%=errorMessage%>
+                    </div>
+                    <% } %>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div>
+                                <form class="product-form" style="width: 18rem;"
+                                    action="/admin/<%= editingMode || hasError==='true' ? 'edit-product' : 'add-product' %>"
+                                    method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <div class="form-group">
+                                        <label for="title">Title : </label>
+                                        <input type="text"
+                                            class="form-control  <%= validationErrors.find(e => e.param === 'title') ? 'invalid' : ''%>"
+                                            placeholder="Enter Product Title" name="title"
+                                            value="<% if(editingMode || hasError) {%><%= prod.title %><% } %>">
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <label for="imgUrl">Image URL :</label>
+                                        <input type="text"
+                                            class="form-control <%= validationErrors.find(e => e.param === 'imageUrl') ? 'invalid' : ''%>"
+                                            placeholder="Enter Image Url" name="imageUrl"
+                                            value="<% if(editingMode || hasError) {%><%=prod.imageUrl %><% }%>">
+                                    </div>-->
+                                    <div class="form-group">
+                                        <label for="image">Image :</label>
+                                        <input type="file" placeholder="Upload Image" name="image">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type=""
+                                            class="form-control price <%= validationErrors.find(e => e.param === 'price') ? 'invalid' : ''%>"
+                                            placeholder="Enter Price" name="price"
+                                            value="<%if(editingMode || hasError){%><%=prod.price%><%}%>" step="0.001">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Enter Product Description</label>
+                                        <textarea name="description"
+                                            class="form-control <%= validationErrors.find(e => e.param === 'description') ? 'invalid' : ''%>"
+                                            placeholder="Enter Your Product Description"
+                                            rows="3"><%if(editingMode || hasError){%><%=prod.description%><%}%></textarea>
+                                    </div>
+                                    <% if(editingMode) {%>
+                                        <input type="hidden" value="<%=prod._id%>" name="productId">
+                                        <% } %>
+                                            <button type="submit" class="btn btn-outline-success">
+                                                <%=editingMode==="true" ? "Update Product" : "Add Product" %>
+                                            </button>
+                                </form>
+                            </div>
+                        </div>
+            </main>
+            <%- include('../includes/end') %>

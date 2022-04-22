@@ -1,0 +1,48 @@
+<%- include('../includes/head') %>
+    <link rel="icon" href="https://image.freepik.com/free-vector/online-shop-logo-template_59362-81.jpg"
+        type="image/jpg">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation') %>
+            <main>
+                <% if (prods.length> 0) { %>
+                    <div class="grid">
+                        <% prods.map(prod=> { %>
+                            <div class="card-group float-left">
+                                <div class="card">
+                                    <img class="card-img-top" src="/<%= prod.imageUrl %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= prod.title %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= prod.description %>
+                                        </p>
+                                        <h4 class="card-text">Price : $<%= prod.price %>
+                                        </h4>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="/admin/edit-product/<%= prod._id %>?edit=true"
+                                            class="card-link btn btn-outline-success">Edit
+                                            Product</a>
+                                        <form action="/admin/delete-product" method="POST" class="float-right">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <input type="hidden" name="productId" value="<%= prod._id %>">
+                                            <button type="submit" class="btn btn-outline-success">Delete
+                                                Product</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <% })%>
+                    </div>
+                    <% } else { %>
+
+                        <h1>There is no products in your shop</h1>
+
+                        <% } %>
+
+            </main>
+            <%- include('../includes/end')%>

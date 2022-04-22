@@ -1,0 +1,42 @@
+<%- include('../includes/head') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation') %>
+            <main>
+                <% if(errorMessage) {%>
+                    <div class="user-message user-message-error">
+                        <%=errorMessage%>
+                    </div>
+                    <% } %>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div>
+                                <form class="product-form" style="width: 18rem;" action="/signup" method="POST"
+                                    novalidate>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <div class="form-group">
+                                        <label for="email">Email : </label>
+                                        <input type="email"
+                                            class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'invalid' : ''%> "
+                                            placeholder="Enter Email" name="email" value="<%= oldInput.email %>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password : </label>
+                                        <input type="password"
+                                            class="form-control  <%= validationErrors.find(e => e.param === 'password') ? 'invalid' : ''%> "
+                                            placeholder="Your Password" name="password" value="<%= oldInput.password%>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Confirm Password : </label>
+                                        <input type="password"
+                                            class="form-control  <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : ''%> "
+                                            placeholder="Your Password" name="confirmPassword"
+                                            value="<%=oldInput.password%>">
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-success">Sign Up</button>
+                                </form>
+                            </div>
+                        </div>
+            </main>
+            <%- include('../includes/end') %>

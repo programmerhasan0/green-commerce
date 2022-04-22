@@ -1,0 +1,33 @@
+<%- include('../includes/head') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation') %>
+            <main>
+                <% if(errorMessage) {%>
+                    <div class="user-message user-message-error">
+                        <%=errorMessage%>
+                    </div>
+                    <% } %>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div>
+                                <form class="product-form" style="width: 18rem;" action="/login" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <div class="form-group">
+                                        <label for="email">Email : </label>
+                                        <input type="email" class="form-control" placeholder="Enter Email"
+                                            value="<%= oldInput.email%>" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password : </label>
+                                        <input type="password" class="form-control" placeholder="Your Password"
+                                            name="password">
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-success">Login</button>
+                                </form>
+                                <a href="/reset" class="btn btn-success-outline">Reset Password</a>
+                            </div>
+                        </div>
+            </main>
+            <%- include('../includes/end') %>

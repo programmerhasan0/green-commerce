@@ -1,0 +1,44 @@
+<%- include('../includes/head') %>
+    <link rel="icon" href="https://image.freepik.com/free-vector/online-shop-logo-template_59362-81.jpg"
+        type="image/jpg">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation') %>
+            <main>
+                <% if (prods.length> 0) { %>
+                    <div class="">
+                        <% prods.map(prod=> { %>
+                            <div class="card-group float-left">
+                                <div class="card">
+                                    <img class="card-img-top" src="/<%= prod.imageUrl %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= prod.title %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= prod.description %>
+                                        </p>
+                                        <h4 class="card-text">Price : $<%= prod.price %>
+                                        </h4>
+                                    </div>
+                                    <div class="card-footer"">
+                       <button class=" btn btn-outline-success float-left details"
+                                        onclick="location.href = '/product/<%= prod._id %>'">Details</button>
+                                        <% if(isLoggedIn) {%>
+                                            <%- include('../includes/add-to-cart', {prod : prod}) %>
+                                                <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% })%>
+                    </div>
+                    <% } else { %>
+
+                        <h1>There is no products in your shop</h1>
+
+                        <% } %>
+
+            </main>
+            <%- include('../includes/end')%>
