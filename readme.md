@@ -1,5 +1,7 @@
 # GREEN COMMERCE
 
+![snapshot](https://i.ibb.co/hgfCyQ0/Screenshot-1.png)
+
 **_Green Commerce_** is a e-commerce website which I created when I was learning Node.js and MongoDB. Some informations about this website is writen below.
 
 - **ExpressJS** has been used as the main framework.
