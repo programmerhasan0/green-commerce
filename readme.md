@@ -25,17 +25,31 @@ _**NOTE DOWN:** This e-commerce shop is an multivendor ecommerce shop so any use
 - orders
 - sessions
 
-**users** schema configuration :
+Schema of **users** collection :
 <br>
 |\_id|email|password|cart
 |-|-|-|-|
 |ObjectId('626275df673eee17346d4120')|programmerhasan0@gmail.com|$2a$12$Rv3ZiPjJkX1oJ8IxTdxvp.NIh9aEd9rHCasEfCdoLEROhufW|`{items : []}`|
 
-**products** schma configuration :
+Schema of **products** collection :
 |\_id|title|price|description|imageUrl|userId|
 |-|-|-|-|-|-|
 |ObjectId('626275f9673eee17346d4121')|Green Apples|25|These are green apples|images\1650619897095_applestn111613997840.jpg|ObjectId('626275df673eee17346d4120')|
 |ObjectId('626389232558f342e4584870')|Blue Berry Juice|16.99|This is made from original blue berries of Poland|images\1650690339424_The-Berry-Company-Blueberry-Juice-Drink-1Litre-738769-01.jpg|626275df673eee17346d4120|
+
+Schema of **orders** collection :
+
+| \_id                                 | user                                                                      | products |
+| ------------------------------------ | ------------------------------------------------------------------------- | -------- |
+| ObjectId('62627460a6995d3168d28b98') | `{email : programmerhasan0@gmail.com, userId : 6262743fa6995d3168d28b96}` | `[]`     |
+
+_**Note Down** : The order list is user specific. A user can only see his orders when he is logged in with the email. but admin can view all orders._
+
+Schema of **sessions** collections :
+
+| \_id                               | expires                       | session                                                  |
+| ---------------------------------- | ----------------------------- | -------------------------------------------------------- |
+| "iJfYu60UP8Dkx49cp9LXa7fo5k0KKQZZ" | 2022-05-05T13:22:26.753+00:00 | `{cookie : {}, csrfSecret : "srKk5ALKl8wbn6WxtCgn4DNl"}` |
 
 **_MD HABIBUL HASAN_**
 <br>
