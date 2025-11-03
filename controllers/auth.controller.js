@@ -10,15 +10,6 @@ const {
     sendWelcomeEmail,
 } = require("../utilities/sendMail.util");
 
-const transport = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
-
 module.exports.getLogin = (req, res, next) => {
     let message = req.flash("error");
     if (message.length > 0) {
