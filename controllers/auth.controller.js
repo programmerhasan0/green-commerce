@@ -3,9 +3,12 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const { validationResult } = require("express-validator");
-require("dotenv").config();
 
 const errorHandler = require("../utilities/error.util");
+const {
+    sendForgetPasswordMail,
+    sendWelcomeEmail,
+} = require("../utilities/sendMail.util");
 
 const transport = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -51,7 +54,6 @@ module.exports.postLogin = (req, res, next) => {
                     if (doMatch) {
                         req.session.user = user;
                         req.session.isLoggedIn = true;
-                        console.log("session is ", req.session);
                         return req.session.save(err => {
                             console.log(err);
                             res.redirect("/");
@@ -127,18 +129,7 @@ module.exports.postSignUp = (req, res, next) => {
         .then(() => {
             res.redirect("/login");
             const _process = process.env;
-            console.log(
-                _process.SMTP_HOST,
-                _process.SMTP_PORT,
-                _process.SMTP_USER,
-                _process.SMTP_PASS
-            );
-            return transport.sendMail({
-                to: email,
-                from: "contact@premium105.web-hosting.com",
-                subject: "SignUp Completed",
-                html: "<h1>Thanks for Creating an account in express shop</h1>",
-            });
+            return sendWelcomeEmail(email);
         })
         .catch(err => {
             console.log("mail server error");
@@ -182,15 +173,14 @@ module.exports.postReset = (req, res, next) => {
                 return user.save();
             })
             .then(result => {
-                res.redirect("/");
-                transport.sendMail({
-                    to: req.body.email,
-                    from: "shop@express-shop.com",
-                    subject: "password Reset Request",
-                    html: `
-          <p>Password Reset Request</p>
-          <p>Please Click this <a href='${process.env.DOMAIN}/reset/${token}'>link</a>`,
-                });
+                sendForgetPasswordMail(result.email, token)
+                    .then(() => {
+                        res.redirect("/login");
+                    })
+                    .catch(err => {
+                        console.log("logging the error", err);
+                        errorHandler.handle500(err, next);
+                    });
             })
             .catch(err => {
                 errorHandler.handle500(err, next);
